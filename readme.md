@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🚀 Express TypeScript Starter
 
 ![Node.js](https://img.shields.io/badge/node-v20.9.0-green.svg)
@@ -129,8 +128,8 @@ Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE
 
 ## 📣 Contacto
 
-Si tienes alguna pregunta o necesitas ayuda, no dudes en abrir una issue o contactarme directamente en GitHub.
-=======
+# Si tienes alguna pregunta o necesitas ayuda, no dudes en abrir una issue o contactarme directamente en GitHub.
+
 MIT License
 
 Copyright (c) 2024 Juan Enrique Ayala Zapata
@@ -152,4 +151,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
->>>>>>> 8dd6595e0b462a919f61ef82172ae11aa773da42
+
+> > > > > > > 8dd6595e0b462a919f61ef82172ae11aa773da42
