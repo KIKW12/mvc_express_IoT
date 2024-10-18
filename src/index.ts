@@ -1,15 +1,17 @@
 import { config } from "dotenv";
 import express from "express";
+import studentRouter from "./routes/student";
 
 //Para poder acceder a las variables del ambiente (.env)
 config();
 
 const app = express();
 
-app.listen(process.env.SERVER_PORT, function () {
-  console.log(`Server running on port ${process.env.SERVER_PORT}`);
-});
+console.log("Hello world");
 
-app.get("/", (req: express.Request, res: express.Response) => {
-  res.send("Hello World");
+app.use(express.json());
+app.use("/student", studentRouter);
+
+app.listen(process.env.SERVER_PORT, function () {
+  console.log("Escuchando puerto " + process.env.SERVER_PORT);
 });
