@@ -141,4 +141,12 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+# Microsoft Word files
+*.doc
+*.docx
+*.dot
+*.dotx
+*.docm
+*.dotm
+
 # End of https://www.toptal.com/developers/gitignore/api/node
