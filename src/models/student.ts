@@ -1,10 +1,32 @@
 import pool from "../db";
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
-import { Student } from "../interfaces/student";
+import { Student, PaginatedStudent } from "../interfaces/student";
 
-export const findAllStudents = async (): Promise<Student[]> => {
-  const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM students");
-  return rows as Student[];
+// Obtener todos los alumnos
+export const findAllStudents = async (
+  limit: number,
+  offset: number,
+): Promise<PaginatedStudent> => {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM students LIMIT ? OFFSET ?",
+    [limit, offset],
+  );
+  // Consulta para obtener el total de registros
+  const [totalRows] = (await pool.query(
+    "SELECT COUNT(*) as count FROM students",
+  )) as [{ count: number }[], unknown];
+  const total = totalRows[0].count;
+
+  // Calcular el total de páginas
+  const totalPages = Math.ceil(total / limit);
+
+  return {
+    page: offset / limit + 1,
+    limit,
+    total,
+    totalPages,
+    data: rows as Student[],
+  };
 };
 
 export const insertStudent = async (student: Student): Promise<Student> => {
@@ -19,8 +41,8 @@ export const insertStudent = async (student: Student): Promise<Student> => {
     grade_level,
   } = student;
   const [result] = await pool.query<ResultSetHeader>(
-    `INSERT INTO students (first_name, last_name, date_of_birth, email, address, phone, gender, grade_level)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO students (first_name, last_name, date_of_birth, email, address, phone, gender, grade_level) 
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       first_name,
       last_name,
@@ -52,15 +74,15 @@ export const updateStudent = async (
   } = student;
   await pool.query<ResultSetHeader>(
     `UPDATE students
-  SET first_name = ?,
-  last_name = ?,
-  date_of_birth = ?,
-  email = ?,
-  address = ?,
-  phone = ?,
-  gender = ?,
-  grade_level = ?
-  WHERE id = ?;`,
+     SET first_name = ?, 
+         last_name = ?, 
+         date_of_birth = ?, 
+         email = ?, 
+         address = ?, 
+         phone = ?, 
+         gender = ?, 
+         grade_level = ?
+     WHERE id = ?;`,
     [
       first_name,
       last_name,
@@ -73,14 +95,12 @@ export const updateStudent = async (
       id,
     ],
   );
+
   return { id, ...student };
 };
 
 export const deleteStudent = async (id: number): Promise<number> => {
-  await pool.query<ResultSetHeader>(
-    `DELETE FROM students WHERE id =
-  ?`,
-    [id],
-  );
+  await pool.query<ResultSetHeader>(`DELETE FROM students WHERE id = ?`, [id]);
+
   return id;
 };

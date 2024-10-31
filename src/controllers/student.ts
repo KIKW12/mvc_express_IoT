@@ -16,7 +16,10 @@ export const createStudent = async (req: Request, res: Response) => {
 // Obtener todos los alumnos
 export const getStudents = async (req: Request, res: Response) => {
   try {
-    const students = await findAll();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 5;
+    const ofset = (page - 1) * limit;
+    const students = await findAll(limit, ofset);
     res.status(200).json(students);
   } catch (error) {
     res.status(500).json({ mensaje: "Error al obtener alumnos", error });

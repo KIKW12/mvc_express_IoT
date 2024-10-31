@@ -7,8 +7,8 @@ import {
 } from "../models/student";
 
 // Obtener todos los alumnos
-export const findAll = async () => {
-  return await findAllStudents();
+export const findAll = async (limit: number, ofset: number) => {
+  return await findAllStudents(limit, ofset);
 };
 
 export const insert = async (student: Student) => {
