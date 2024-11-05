@@ -1,4 +1,4 @@
-import dotenvFlow from "dotenv-Flow";
+import dotenvFlow from "dotenv-flow";
 import express from "express";
 import studentRouter from "./routes/student";
 import unknownError from "./middlewares/unknown-error";
